@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Product\Application;
+namespace App\Product\Application\UseCase;
 
 use App\Product\Domain\Repository\ProductRepositoryInterface;
 

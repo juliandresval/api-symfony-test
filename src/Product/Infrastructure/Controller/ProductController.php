@@ -2,7 +2,7 @@
 
 namespace App\Product\Infrastructure\Controller;
 
-use App\Product\Application\GetProduct;
+use App\Product\Application\UseCase\GetProduct;
 use App\Product\Domain\Entity\Product;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
