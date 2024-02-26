@@ -3,7 +3,6 @@
 namespace App\Product\Infrastructure\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Product\Application\UseCase\CreateProduct;
@@ -38,7 +37,7 @@ class ProductController extends AbstractController
     }
 
 
-    #[Route('/products', name: 'api_product_get_all', methods: 'GET')]
+    #[Route('/products', name: 'api_product_get_all', methods: 'GET', format: 'json')]
     public function getAll(Request $request): JsonResponse
     {
         $useCase =& $this->getProductList;
@@ -58,7 +57,7 @@ class ProductController extends AbstractController
     }
 
 
-    #[Route('/products/{id}', name: 'api_product_get', methods: 'GET')]
+    #[Route('/products/{id}', name: 'api_product_get', methods: 'GET', format: 'json')]
     public function get($id): JsonResponse
     {
         $useCase =& $this->getProduct;
