@@ -15,6 +15,6 @@ class GetProduct
     }
 
     public function exec($id) {
-        return $this->productRepository->get($id);
+        return $this->productRepository->get($id)->toArray();
     }
 }

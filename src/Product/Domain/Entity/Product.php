@@ -24,12 +24,23 @@ class Product
     private ?string $price = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 5, scale: 2)]
-    private ?string $vat = null;
+    private ?string $vatRate = null;
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 14, scale: 2)]
+    private ?string $vatAmount = null;
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 14, scale: 2)]
+    private ?string $finalPrice = null;
+
+    #[ORM\Column(length: 3)]
+    private ?string $currency = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
+
+    /** name */
 
     public function getName(): ?string
     {
@@ -43,6 +54,8 @@ class Product
         return $this;
     }
 
+    /** description */
+
     public function getDescription(): ?string
     {
         return $this->description;
@@ -54,6 +67,8 @@ class Product
 
         return $this;
     }
+
+    /** price */
 
     public function getPrice(): ?string
     {
@@ -67,26 +82,78 @@ class Product
         return $this;
     }
 
-    public function getVat(): ?string
+    /** vatRate */
+
+    public function getVatRate(): ?string
     {
-        return $this->vat;
+        return $this->vatRate;
     }
 
-    public function setVat(string $vat): static
+    public function setVatRate(string $vatRate = '0.00'): static
     {
-        $this->vat = $vat;
+        $this->vatRate = $vatRate;
 
         return $this;
     }
 
-    function toArray(): array
+    /** vatAmount */
+
+    public function getVatAmount(): ?string
     {
-        return [
-            'id' => $this->getId(),
-            'name' => $this->getName(),
-            'description' => $this->getDescription(),
-            'price' => $this->getPrice(),
-            'vat' => $this->getVat(),
-        ];
+        return $this->vatAmount;
+    }
+
+    public function setVatAmount(string $vatAmount = '0.00'): static
+    {
+        $this->vatAmount = $vatAmount;
+
+        return $this;
+    }
+
+    /** finalPrice */
+
+    public function getFinalPrice(): ?string
+    {
+        return $this->finalPrice;
+    }
+
+    public function setFinalPrice(string $finalPrice = '0.00'): static
+    {
+        $this->finalPrice = $finalPrice;
+
+        return $this;
+    }
+
+    /** currency */
+
+    public function getCurrency(): ?string
+    {
+        return $this->currency;
+    }
+
+    public function setCurrency(string $currency): static
+    {
+        $this->currency = $currency;
+
+        return $this;
+    }
+
+    public function getProps() : array
+    {
+        return array_keys(get_class_vars($this::class)) ?? [];
+    }
+
+    public function toArray(): array
+    {
+        $array = [];
+
+        foreach ($this->getProps() as $key => $value) {
+            $array[$key] = [
+                'property' => $value,
+                'value' => method_exists($this, $method = 'get' . ucwords($value)) ? $this->$method() : null
+            ];
+        }
+
+        return $array;
     }
 }
