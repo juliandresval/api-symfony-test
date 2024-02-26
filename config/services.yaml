@@ -19,3 +19,7 @@ services:
     App\Product\:
         resource: '../src/Product/'
         exclude: ['../src/Product/Domain/Entity/']
+
+    App\Auth\:
+        resource: '../src/Auth/'
+        exclude: ['../src/Auth/Domain/Entity/']

@@ -3,3 +3,9 @@ App\Product:
         path: ../src/Product/Infrastructure/Controller/
         namespace: App\Product\Infrastructure\Controller
     type: attribute
+
+App\Auth:
+    resource:
+        path: ../src/Auth/Infrastructure/Controller/
+        namespace: App\Auth\Infrastructure\Controller
+    type: attribute
