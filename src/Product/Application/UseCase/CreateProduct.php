@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Product\Application\UseCase;
 
@@ -8,8 +8,7 @@ use App\Product\Domain\Repository\ProductRepositoryInterface;
 class CreateProduct
 {
     public function __construct(
-        private ProductRepositoryInterface $productRepository,
-        private Product $product
+        private ProductRepositoryInterface $productRepository
     ) {
     }
 
@@ -18,9 +17,9 @@ class CreateProduct
         return $this->exec($values);
     }
 
-    protected function exec($values): mixed
+    protected function exec(array $values): mixed
     {
-        // ToDo
-        return null;
+        $product = Product::create($values);
+        return $this->productRepository->save($product);
     }
 }

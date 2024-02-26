@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Product\Infrastructure\Repository;
 
@@ -39,8 +39,13 @@ class ProductRepository extends ServiceEntityRepository implements ProductReposi
 
     public function save(Product $product): mixed
     {
-        // ToDo
-        return "Product with {$product->getName()} has been saved";
+        try {
+            $this->getEntityManager()->persist($product);
+            $this->getEntityManager()->flush();
+        } catch (\Throwable $th) {
+            return false;
+        }
+        return true;
     }
 
     public function remove($id): mixed

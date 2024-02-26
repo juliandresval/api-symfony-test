@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Product\Domain\Entity;
 
@@ -136,6 +136,22 @@ class Product
         $this->currency = $currency;
 
         return $this;
+    }
+
+    public static function create(array $values): Product {
+        $product = new Product();
+        $product->setName($values['name']);
+        $product->setDescription($values['description']);
+        $product->setPrice($values['price']);
+        $product->setVatRate($values['vatRate']);
+        $product->setVatAmount(
+            (string) ($values['price'] * ($values['vatRate']/100))
+        );
+        $product->setFinalPrice(
+            (string) (($values['price'] * ($values['vatRate']/100)) + $values['price'])
+        );
+        $product->setCurrency(!empty($values['currency']) ? $values['currency'] : 'USD');
+        return $product;
     }
 
     public function getProps() : array
