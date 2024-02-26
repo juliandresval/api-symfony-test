@@ -2,6 +2,7 @@
 
 namespace App\Product\Infrastructure\Controller;
 
+use App\Product\Application\GetProduct;
 use App\Product\Domain\Entity\Product;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,12 +13,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ProductController extends AbstractController
 {
     public function __construct(
-        private ProductRepository $productRepository
+        private GetProduct $getProduct,
     ) { }
 
-    #[Route('/product/{id}', name: 'app_product')]
-    public function getProduct($id, Product $product, Request $request): Response
+    #[Route('/product/{id}', name: 'api_product_get', methods: 'GET')]
+    public function get($id, Product $product, Request $request): Response
     {
-        return $this->json($this->productRepository->find($id)->toArray());
+        $getProduct =& $this->getProduct;
+        return $this->json($getProduct($id));
     }
 }
