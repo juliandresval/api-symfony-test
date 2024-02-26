@@ -39,36 +39,33 @@ class ProductRepository extends ServiceEntityRepository implements ProductReposi
 
     public function save(Product $product): mixed
     {
+        // ToDo
         return "Product with {$product->getName()} has been saved";
     }
 
     public function remove($id): mixed
     {
+        // ToDo
         return "Product with {$id} has been removed";
     }
 
-    //    /**
-    //     * @return Product[] Returns an array of Product objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('p.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function search(array $criteria = [], array|null $orderBy = null, int|null $limit = null, int|null $offset = null) : array {
 
-    //    public function findOneBySomeField($value): ?Product
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        /** @var \Doctrine\ORM\QueryBuilder $query */
+        $query = $this->createQueryBuilder('p');
+
+        if (!empty($criteria['name'])) {
+            $query->andWhere("p.name LIKE :name")->setParameter("name", "%{$criteria['name']}%");
+        }
+
+        if (!empty($criteria['description'])) {
+            $query->andWhere("p.description LIKE :description")->setParameter("description", "%{$criteria['description']}%");
+        }
+
+        $query->setMaxResults($limit);
+
+        // ToDo offset and pagination
+
+        return $query->getQuery()->getResult();
+    }
 }

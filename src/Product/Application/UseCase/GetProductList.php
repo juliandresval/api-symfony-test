@@ -4,7 +4,7 @@ namespace App\Product\Application\UseCase;
 
 use App\Product\Domain\Repository\ProductRepositoryInterface;
 
-class GetProduct
+class GetProductList
 {
     public function __construct(
         private ProductRepositoryInterface $productRepository
@@ -16,8 +16,14 @@ class GetProduct
         return $this->exec($id);
     }
 
-    protected function exec($id)
+    protected function exec(array $params = [])
     {
-        return $this->productRepository->get($id)->toArray();
+        $return = [];
+        // ToDo Pagination
+        $result = $this->productRepository->search($params);
+        foreach ($result as $key => $value) {
+            $return[$key] = $value->toArray();
+        }
+        return $return;
     }
 }
