@@ -1,10 +1,4 @@
-controllers:
-    resource:
-        path: ../src/Controller/
-        namespace: App\Controller
-    type: attribute
-
-App\Product\:
+App\Product:
     resource:
         path: ../src/Product/Infrastructure/Controller/
         namespace: App\Product\Infrastructure\Controller
