@@ -11,7 +11,7 @@ use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
 class ApiLoginController extends AbstractController
 {
-    #[Route('/api/login', name: 'api_login', methods: 'POST')]
+    #[Route('/api/login', name: 'api_login', methods: 'POST', format: 'json')]
     public function index(#[CurrentUser] ?User $user): JsonResponse
     {
         if (null === $user) {
@@ -28,5 +28,11 @@ class ApiLoginController extends AbstractController
             'user'  => $user->getUserIdentifier(),
             'token' => $token,
         ]);
+    }
+
+    #[Route('/api/logout', name: 'api_logout', format: 'json')]
+    public function logout(): JsonResponse
+    {
+        return $this->json(['message' => 'Goodbye!']);
     }
 }
