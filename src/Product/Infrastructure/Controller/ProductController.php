@@ -14,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/api')]
 class ProductController extends AbstractController
 {
+
     public function __construct(
         private GetProduct $getProduct,
         private GetProductList $getProductList,
@@ -42,7 +43,18 @@ class ProductController extends AbstractController
     {
         $useCase =& $this->getProductList;
         $queryParams = $request->query->all();
-        return $this->json(['data' => $useCase($queryParams ?? [])]);
+
+        $limit = $request->get('limit', 10);
+        $page = $request->get('page', 1);
+        $offset = ($limit * ($page - 1));
+
+        return $this->json(
+            ['data' => $useCase(
+                $queryParams ?? [],
+                $limit,
+                $offset,
+            )]
+        );
     }
 
 
