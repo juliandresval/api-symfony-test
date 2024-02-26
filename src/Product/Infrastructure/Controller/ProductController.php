@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Controller;
+namespace App\Product\Infrastructure\Controller;
 
-use App\Entity\Product;
-use App\Repository\ProductRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Product\Domain\Entity\Product;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Product\Infrastructure\Repository\ProductRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ProductController extends AbstractController
 {
@@ -18,8 +18,6 @@ class ProductController extends AbstractController
     #[Route('/product/{id}', name: 'app_product')]
     public function getProduct($id, Product $product, Request $request): Response
     {
-        dump($id);
-        dump($this->productRepository->find($id-1)->toArray());
-        dd($product->toArray());
+        return $this->json($this->productRepository->find($id)->toArray());
     }
 }
