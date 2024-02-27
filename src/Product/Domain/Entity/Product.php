@@ -115,7 +115,7 @@ class Product
 
     /** vatAmount && finalPrice */
 
-    final private function autoSetVatAmountAndFinalPrice(): void
+    protected function autoSetVatAmountAndFinalPrice(): void
     {
         $this->vatAmount = $this->price * ($this->vatRate / 100);
         $this->finalPrice = $this->price + $this->vatAmount;
@@ -123,7 +123,7 @@ class Product
 
     /** Numeric validation */
 
-    final private function isNumeric($value): bool
+    protected function isNumeric($value): bool
     {
         if (!is_numeric($value)) {
             throw new \Exception('Invalid data type. It shuld be numeric.');
