@@ -17,10 +17,10 @@ doctrine:
         auto_mapping: true
         mappings:
             App\Product:
-                type: attribute
+                type: xml
                 is_bundle: false
-                dir: '%kernel.project_dir%/src/Product/Domain/Entity'
-                prefix: 'App\Product\Domain\Entity'
+                dir: '%kernel.project_dir%/src/Product/Infrastructure/Orm'
+                prefix: 'App\Product\Infrastructure\Orm'
                 alias: App\Product
             App\Auth:
                 type: attribute

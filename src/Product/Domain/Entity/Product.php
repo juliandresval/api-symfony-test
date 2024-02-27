@@ -2,37 +2,22 @@
 
 namespace App\Product\Domain\Entity;
 
-use App\Product\Infrastructure\Repository\ProductRepository;
-use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
-
-#[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 14, scale: 2)]
     private ?string $price = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 5, scale: 2)]
     private ?string $vatRate = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 14, scale: 2)]
     private ?string $vatAmount = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 14, scale: 2)]
     private ?string $finalPrice = null;
 
-    #[ORM\Column(length: 3)]
     private ?string $currency = null;
 
     public function getId(): ?int
@@ -137,6 +122,8 @@ class Product
 
         return $this;
     }
+
+    /** Tools */
 
     public static function create(array $values): Product {
         $product = new Product();
