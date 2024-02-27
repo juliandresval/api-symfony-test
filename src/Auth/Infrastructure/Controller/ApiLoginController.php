@@ -2,11 +2,10 @@
 
 namespace App\Auth\Infrastructure\Controller;
 
-
+use App\Auth\Infrastructure\Security\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
-use App\Auth\Domain\Entity\User;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
 class ApiLoginController extends AbstractController

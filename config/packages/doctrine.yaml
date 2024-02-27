@@ -21,13 +21,11 @@ doctrine:
                 is_bundle: false
                 dir: '%kernel.project_dir%/src/Product/Infrastructure/Orm'
                 prefix: 'App\Product\Domain\Entity'
-                #alias: App\Product
             App\Auth:
                 type: xml
                 is_bundle: false
                 dir: '%kernel.project_dir%/src/Auth/Infrastructure/Orm'
-                prefix: 'App\Auth\Domain\Entity'
-                #alias: App\Auth
+                prefix: 'App\Auth\Infrastructure\Security'
 
 when@test:
     doctrine:

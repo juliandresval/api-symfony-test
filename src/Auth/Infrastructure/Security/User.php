@@ -1,11 +1,15 @@
 <?php
 
-namespace App\Auth\Domain\Entity;
+namespace App\Auth\Infrastructure\Security;
 
+use App\Auth\Domain\Entity\AbstractUser;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+/**
+ * App\Auth\Infrastructure\Security\User
+ */
+class User extends AbstractUser implements UserInterface, PasswordAuthenticatedUserInterface
 {
 
     private ?int $id = null;
