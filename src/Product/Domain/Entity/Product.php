@@ -10,13 +10,13 @@ class Product
 
     private ?string $description = null;
 
-    private ?string $price = null;
+    private string|int|float|null $price = null;
 
-    private ?string $vatRate = null;
+    private string|int|float|null $vatRate = null;
 
-    private ?string $vatAmount = null;
+    private string|int|float|null $vatAmount = null;
 
-    private ?string $finalPrice = null;
+    private string|int|float|null $finalPrice = null;
 
     private ?string $currency = null;
 
@@ -53,62 +53,6 @@ class Product
         return $this;
     }
 
-    /** price */
-
-    public function getPrice(): ?string
-    {
-        return $this->price;
-    }
-
-    public function setPrice(string $price): static
-    {
-        $this->price = $price;
-
-        return $this;
-    }
-
-    /** vatRate */
-
-    public function getVatRate(): ?string
-    {
-        return $this->vatRate;
-    }
-
-    public function setVatRate(string $vatRate = '0.00'): static
-    {
-        $this->vatRate = $vatRate;
-
-        return $this;
-    }
-
-    /** vatAmount */
-
-    public function getVatAmount(): ?string
-    {
-        return $this->vatAmount;
-    }
-
-    public function setVatAmount(string $vatAmount = '0.00'): static
-    {
-        $this->vatAmount = $vatAmount;
-
-        return $this;
-    }
-
-    /** finalPrice */
-
-    public function getFinalPrice(): ?string
-    {
-        return $this->finalPrice;
-    }
-
-    public function setFinalPrice(string $finalPrice = '0.00'): static
-    {
-        $this->finalPrice = $finalPrice;
-
-        return $this;
-    }
-
     /** currency */
 
     public function getCurrency(): ?string
@@ -123,25 +67,84 @@ class Product
         return $this;
     }
 
+    /** price */
+
+    public function getPrice(): ?string
+    {
+        return $this->price;
+    }
+
+    public function setPrice(string|int|float $price): static
+    {
+        $this->isNumeric($price);
+        $this->price = $price;
+        $this->autoSetVatAmountAndFinalPrice();
+
+        return $this;
+    }
+
+    /** vatRate */
+
+    public function getVatRate(): ?string
+    {
+        return $this->vatRate;
+    }
+
+    public function setVatRate(string|int|float $vatRate): static
+    {
+        $this->isNumeric($vatRate);
+        $this->vatRate = $vatRate;
+        $this->autoSetVatAmountAndFinalPrice();
+
+        return $this;
+    }
+
+    /** vatAmount */
+
+    public function getVatAmount(): ?string
+    {
+        return $this->vatAmount;
+    }
+
+    /** finalPrice */
+
+    public function getFinalPrice(): ?string
+    {
+        return $this->finalPrice;
+    }
+
+    /** vatAmount && finalPrice */
+
+    final private function autoSetVatAmountAndFinalPrice(): void
+    {
+        $this->vatAmount = $this->price * ($this->vatRate / 100);
+        $this->finalPrice = $this->price + $this->vatAmount;
+    }
+
+    /** Numeric validation */
+
+    final private function isNumeric($value): bool
+    {
+        if (!is_numeric($value)) {
+            throw new \Exception('Invalid data type. It shuld be numeric.');
+        }
+        return true;
+    }
+
     /** Tools */
 
-    public static function create(array $values): Product {
+    public static function create(array $values): Product
+    {
         $product = new Product();
         $product->setName($values['name']);
         $product->setDescription($values['description']);
         $product->setPrice($values['price']);
         $product->setVatRate($values['vatRate']);
-        $product->setVatAmount(
-            (string) ($values['price'] * ($values['vatRate']/100))
-        );
-        $product->setFinalPrice(
-            (string) (($values['price'] * ($values['vatRate']/100)) + $values['price'])
-        );
         $product->setCurrency(!empty($values['currency']) ? $values['currency'] : 'USD');
         return $product;
     }
 
-    public function getProps() : array
+    public function getProps(): array
     {
         return array_keys(get_class_vars($this::class)) ?? [];
     }
