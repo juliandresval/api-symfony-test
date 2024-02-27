@@ -20,14 +20,14 @@ doctrine:
                 type: xml
                 is_bundle: false
                 dir: '%kernel.project_dir%/src/Product/Infrastructure/Orm'
-                prefix: 'App\Product\Infrastructure\Orm'
-                alias: App\Product
+                prefix: 'App\Product\Domain\Entity'
+                #alias: App\Product
             App\Auth:
-                type: attribute
+                type: xml
                 is_bundle: false
-                dir: '%kernel.project_dir%/src/Auth/Domain/Entity'
+                dir: '%kernel.project_dir%/src/Auth/Infrastructure/Orm'
                 prefix: 'App\Auth\Domain\Entity'
-                alias: App\Auth
+                #alias: App\Auth
 
 when@test:
     doctrine:
