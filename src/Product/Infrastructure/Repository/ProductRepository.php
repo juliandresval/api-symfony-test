@@ -43,7 +43,7 @@ class ProductRepository extends ServiceEntityRepository implements ProductReposi
         return $this->findOneBy($criteria, $orderBy);
     }
 
-    public function save(Product $product): mixed
+    public function save(Product $product): bool
     {
         try {
             $this->getEntityManager()->persist($product);
@@ -54,10 +54,10 @@ class ProductRepository extends ServiceEntityRepository implements ProductReposi
         return true;
     }
 
-    public function remove($id): mixed
+    public function remove($id): bool
     {
         // ToDo
-        return "Product with {$id} has been removed";
+        return false;
     }
 
     public function search(array $criteria = [], array|null $orderBy = null, int|null $limit = null, int|null $offset = null): iterable

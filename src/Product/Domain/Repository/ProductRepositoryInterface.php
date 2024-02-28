@@ -10,7 +10,7 @@ interface ProductRepositoryInterface
     public function getAll(): iterable;
     public function getBy(array $criteria, array|null $orderBy = null, int|null $limit = null, int|null $offset = null): iterable;
     public function getOneBy(array $criteria, array|null $orderBy = null): ?Product;
-    public function save(Product $product): mixed;
-    public function remove($id): mixed;
+    public function save(Product $product): bool;
+    public function remove($id): bool;
     public function search(array $criteria, array|null $orderBy = null, int|null $limit = null, int|null $offset = null): iterable;
 }

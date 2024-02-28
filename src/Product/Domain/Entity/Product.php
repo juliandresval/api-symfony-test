@@ -71,7 +71,7 @@ class Product
 
     public function getPrice(): ?string
     {
-        return $this->price;
+        return (string) $this->price;
     }
 
     public function setPrice(string|int|float $price): static
@@ -87,7 +87,7 @@ class Product
 
     public function getVatRate(): ?string
     {
-        return $this->vatRate;
+        return (string) $this->vatRate;
     }
 
     public function setVatRate(string|int|float $vatRate): static
@@ -103,14 +103,14 @@ class Product
 
     public function getVatAmount(): ?string
     {
-        return $this->vatAmount;
+        return (string) $this->vatAmount;
     }
 
     /** finalPrice */
 
     public function getFinalPrice(): ?string
     {
-        return $this->finalPrice;
+        return (string) $this->finalPrice;
     }
 
     /** vatAmount && finalPrice */
