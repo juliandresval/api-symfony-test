@@ -3,7 +3,7 @@
 namespace App\Auth\Domain\Entity;
 
 
-abstract class AbstractUser
+abstract class AbstractUser implements UserInterface
 {
 
     private ?int $id = null;
@@ -39,5 +39,12 @@ abstract class AbstractUser
         $this->password = $password;
 
         return $this;
+    }
+
+    public static function create(array $values) : UserInterface {
+        $user = new UserInterface();
+        $user->setUsername($values['username']);
+        $user->setPassword($values['password']);
+        return $user;
     }
 }

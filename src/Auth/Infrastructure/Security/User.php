@@ -3,13 +3,16 @@
 namespace App\Auth\Infrastructure\Security;
 
 use App\Auth\Domain\Entity\AbstractUser;
+use App\Auth\Domain\Entity\UserInterface as DomainUserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 /**
  * App\Auth\Infrastructure\Security\User
  */
-class User extends AbstractUser implements UserInterface, PasswordAuthenticatedUserInterface
+#[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
+class User extends AbstractUser implements UserInterface, PasswordAuthenticatedUserInterface, DomainUserInterface
 {
 
     private ?int $id = null;
@@ -93,5 +96,12 @@ class User extends AbstractUser implements UserInterface, PasswordAuthenticatedU
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public static function create(array $values) : User|AbstractUser {
+        $user = new User();
+        $user->setUsername($values['username']);
+        $user->setPassword($values['password']);
+        return $user;
     }
 }
