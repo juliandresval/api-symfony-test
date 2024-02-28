@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Shared\DataFixtures;
+namespace App\Product\Infrastructure\DataFixtures;
+
 
 use App\Product\Domain\Entity\Product;
 use Doctrine\Persistence\ObjectManager;
@@ -38,7 +39,6 @@ class ProductFixtures extends Fixture
         foreach ($this->getData() as $key => $row) {
             $row['description'] = 'Descripción de ' . $row['name'];
             $product = Product::create($row);
-            print_r($product);
             $manager->persist($product);
         }
 
