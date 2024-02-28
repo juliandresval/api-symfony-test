@@ -1,7 +1,7 @@
 
 # Product API Test
 
-Este proyecto es la resolución de una prueba técina implementando arquitectura hexagonal y diseño orientado al dominio (DDD) sobre Symfony 6.4 (LTS)
+Este proyecto es la resolución de una prueba técina implementando arquitectura hexagonal y diseño orientado al dominio (DDD) sobre *Symfony v6.4 (LTS)* y *MySQL v8*
 
 ## Notas para los evaluadores
 
